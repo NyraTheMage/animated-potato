@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+
+</head>
+
+<body>
+
+    <div id="myColumn2" style="width: 100px; height: 100vh; float: left; background-color: lightgreen;">
+      <div class="layerbar" id="layerList"></div>
+    </div>
+    
+    <div id="myColumn1" style="width: 200px; height: 100vh; float: left; background-color: lightblue;">
+
+      <!-- toolbar -->
+      <div class="toolbar"> 
+        <div id="step1" onclick="setProcessStep(1)"  >1. Sketch
+          <div id="sketchControls" class="controls-section" style="display: none;">
+              <button onclick="rasterSketch_setMode('draw')">Draw</button>
+              <button onclick="rasterSketch_setMode('erase')">Erase</button>
+              <div class="slider-container">
+                  <label for="nibSize">Size:</label>
+                  <input type="range" id="nibSize" min="1" max="50" value="2" oninput="rasterSketch_setNibSize(this.value)">
+                  <span id="nibValue">2</span>
+              </div>
+          </div>
+        </div>
+
+        <div id="step2" onclick="setProcessStep(2)">2. Block Out
+          <div id="blockOutControls" class="controls-section2" style="display: none;">
+              <div> 
+                <button id = "pencilColorToggle" onclick="pencilToggleColor()" > color </button>
+              </div>
+              <button onclick="pencilTool_deleteLastStroke()"> delete last </button>
+              <button onclick="pencilTool_endShape(true)">New shape (filled)</button>
+              <button onclick="pencilTool_endShape(false)">New shape (no fill)</button>
+            </div>
+        </div>
+
+        <div id="step3" onclick="setProcessStep(3)">3. Select</div>
+        <div id="step4" onclick="setProcessStep(4)">4. Detailing</div>
+        <button onclick="d_downloadAllAsZip()"> export </button>
+        <button onclick="d_overwrite()"> import </button>
+      </div>
+    
+    </div> <!-- end of myColumn1 -->
+    
+
+
+    <div style="height: 100vh; overflow: hidden; position: relative;">
+
+
+        <!-- SVG -->
+
+        <svg id = "canvas_container" width="0" height="0" id="canvas_back" style="position: absolute; top: 0; left: 0; z-index: 1; border: 2px dotted blue">
+          
+          <rect id= 'svg_background' fill="grey" width='100%' height="100%" style="position: absolute; top: 0; left: 0;"></rect>
+
+          <svg id = "canvas_svg" style="position: absolute; top: 0; left: 0;" viewBox="0 0 0 0">
+
+            <rect id ='svg_back' fill="white"  style="position: absolute; top: 0; left: 0;"></rect>
+          </svg>
+      
+        </svg>
+
+        <canvas id="rasterCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px solid purple; z-index:3"></canvas>
+
+
+        <svg id="uiSvgCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:10"></svg>
+
+        <canvas id="uiRasterCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:11"></canvas>
+
+        <svg id="touchCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:12"></svg>
+         
+
+    </div>
+
+    
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.9.1/jszip.min.js"></script>
+
+<script src="W_PointsToBezier.js"></script>
+<script src="W_ID.js"></script>
+
+<script src="main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.0.1/math.js"
+ ></script>
+
+<!-- style for toolbar. idk how i did it in the old version -->
+<style> 
+  body {
+    font-size: 15pt;
+    cursor: crosshair
+  }
+
+
+  .highlight {
+    background-color: blue;
+    color: white;
+  }
+
+ 
+
+  .toolbar div {
+    padding: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+
+
+  /*
+  .toolbar div:hover {
+    background-color: #ddd;
+  }
+  */
+
+</style>
+
+</html>
