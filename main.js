@@ -1956,6 +1956,12 @@ rasterSketch_ctx.globalAlpha = 1;
 rasterSketch_ctx.lineCap = 'round';
 rasterSketch_ctx.lineJoin = 'round'
 
+// 7.0 setup
+rasterSketch_ctx.fillStyle = global_backgroundColor; 
+rasterSketch_ctx.fillRect(0, 0, masterDimensions.width, masterDimensions.height);
+
+
+
 
 // nib
 let rasterSketch_nib = document.createElementNS("http://www.w3.org/2000/svg", "circle")
@@ -2854,7 +2860,6 @@ function rawSetProcessStep(step){ // without toolbar
       rasterCanvas.style.opacity = "1"
     } else {
       rasterCanvas.style.opacity = "0.3"
-      console.log('yo')
     }
 
 
@@ -3404,10 +3409,6 @@ eyedropper_upload.addEventListener('change', (e) => {
 // Handle mouse movement over eyedropper_canvas
 
 function eyedropper_onMove(e, targetCanvas){
-
-  if (eyedropper_isPicking == false ){
-    return
-  }
 
   let targetCtx = targetCanvas.getContext('2d');
 
