@@ -14,6 +14,14 @@
 </head>
 
 <body>
+  
+    <div id="myColumn4" style="width: 10vw; height: 100vh; float: left; background-color: lightgrey;">
+      <div id="functionList2" class="functionList"></div>
+    </div>
+
+    <div id="myColumn3" style="width: 20vw; height: 100vh; float: left; background-color: lightgrey;">
+      <div id="functionList" class="functionList"></div>
+    </div>
 
     <div id="myColumn2" style="width: 100px; height: 100vh; float: left; background-color: lightgreen;">
       <div class="layerbar" id="layerList"></div>
@@ -37,9 +45,6 @@
 
         <div id="step2" onclick="setProcessStep(2)">2. Block Out
           <div id="blockOutControls" class="controls-section2" style="display: none;">
-              <div> 
-                <button id = "pencilColorToggle" onclick="pencilToggleColor()" > color </button>
-              </div>
               <button onclick="pencilTool_deleteLastStroke()"> delete last </button>
               <button onclick="pencilTool_endShape(true)">New shape (filled)</button>
               <button onclick="pencilTool_endShape(false)">New shape (no fill)</button>
@@ -58,7 +63,6 @@
 
     <div style="height: 100vh; overflow: hidden; position: relative;">
 
-
         <!-- SVG -->
 
         <svg id = "canvas_container" width="0" height="0" id="canvas_back" style="position: absolute; top: 0; left: 0; z-index: 1; border: 2px dotted blue">
@@ -75,12 +79,35 @@
         <canvas id="rasterCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px solid purple; z-index:3"></canvas>
 
 
-        <svg id="uiSvgCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:10"></svg>
+        <svg id="uiSvgCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted red; z-index:10"></svg>
 
-        <canvas id="uiRasterCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:11"></canvas>
+        <canvas id="uiRasterCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 3px dotted pink; z-index:11"></canvas>
 
         <svg id="touchCanvas" width="0" height="0" style="position: absolute; top: 0; left: 0; border: 2px dotted green; z-index:12"></svg>
          
+
+    <div id="inputBar">
+      <div id="promptText"></div>
+      <select id="dropdown" style="display: none;">
+        <option value="">Select an option</option>
+        <!-- Options will be dynamically added here -->
+      </select>
+      <button id="pickCanvasButton" style="display: none;">Pick from Canvas</button>
+      <button id="useSelectionButton" style="display: none;">Use Selection</button>
+      <button id="confirmButton" style="display: none;">Confirm</button>
+      <button id="cancelButton" style="display: none;">Cancel</button>
+
+    </div>
+
+    </div>
+
+    
+
+    <div id="eyedropperPalette">
+     <input type="file" id="eyedropper_upload" accept="image/*">
+      <canvas id="eyedropper_canvas" style="width: 200px; height: 100px; border: 1px solid black; background-color: red" ></canvas>
+      <div id="eyedropper_color-box" style="width: 50px; height: 50px; border: 1px solid black; background-color: red"></div>
+      <span id="rgb">RGB: -</span>
 
     </div>
 
@@ -102,7 +129,9 @@
 <style> 
   body {
     font-size: 15pt;
-    cursor: crosshair
+    cursor: crosshair;
+    overflow: hidden;
+
   }
 
 
@@ -127,6 +156,79 @@
     background-color: #ddd;
   }
   */
+
+  button {
+    padding: 12px 24px;     /* Increases clickable area */
+    font-size: 16px;        /* Makes text bigger */
+    border-radius: 6px;     /* Optional: rounded corners */
+    cursor: pointer;        /* Changes cursor on hover */
+  }
+
+  .functionList {
+    max-height: 90vh; /* or whatever height you want */
+    overflow-y: auto;
+    border: 1px solid #ccc; /* optional: to show its boundary */
+    padding-bottom: 100px;
+  }
+
+
+
+  .category {
+      padding: 12px 24px;     /* Increases clickable area */
+      padding-left: 20px;
+      margin-bottom: 10px;
+
+      font-size: 10pt;
+      font-family: Consolas, monospace; 
+    }
+    .category-title {
+      cursor: pointer;
+      font-weight: semibold;
+      margin: 5px 0;
+      text-transform: uppercase;
+    }
+    .functions {
+      display: none;
+      margin-left: 0px;
+    }
+
+    .functions button {
+      font-size: 10pt;
+      display: block;
+      margin: 5px 0;
+      text-transform: lowercase;
+      font-family: Consolas, monospace; 
+    }
+
+
+
+    #inputBar {
+      font-family: Consolas, monospace;
+      font-size: 10pt;
+      background-color: #f8f8f8;
+      border-top: 1px solid #ccc;
+      padding-bottom: 100px;
+      position: absolute; bottom: 0;
+      width: 100%;
+
+    }
+    #dropdown, #pickCanvasButton, #useSelectionButton {
+      margin-top: 10px;
+    }
+
+   #eyedropperPalette {
+    width: 30vh;
+    height:  30vh;
+    z-index: 999;
+    padding: 10px;
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    background-color: white; /* Removed extra colon */
+    border: 1px solid black;
+  }
+
+
 
 </style>
 
